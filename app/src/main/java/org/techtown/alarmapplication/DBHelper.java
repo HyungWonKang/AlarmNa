@@ -48,7 +48,15 @@ public class DBHelper extends SQLiteOpenHelper {
                 String receiver = cursor.getString(cursor.getColumnIndexOrThrow("receiver"));
                 String message = cursor.getString(cursor.getColumnIndexOrThrow("message"));
 
-
+                AlarmItem alarmItem = new AlarmItem();
+                alarmItem.setId(id);
+                alarmItem.setTitle(title);
+                alarmItem.setDate(date);
+                alarmItem.setTime(time);
+                alarmItem.setDuration(duration);
+                alarmItem.setReceiver(receiver);
+                alarmItem.setMessage(message);
+                alarmItems.add(alarmItem);
             }
         }
         cursor.close();
@@ -65,6 +73,7 @@ public class DBHelper extends SQLiteOpenHelper {
     //UPDATE문-수정
     public void UpdateAlarm(String _title, String _date, String _time, int _duration, String _receiver, String _message, int _id){
         SQLiteDatabase db = getWritableDatabase();
+        //언더바 없는 변수는 원래 있던 데이터, 언더바 있는 변수는 새로 업데이트 할 데이터
         db.execSQL("UPDATE Alram SET title='" + _title + "', date='" + _date + "', time='" + _time + "', duratione='" + _duration + "', receiver='" + _receiver + "', message='" + _message  + "' WHERE id='" + _id + "'");
     }
 
